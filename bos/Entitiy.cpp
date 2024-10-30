@@ -62,7 +62,6 @@ class Muhammet : public Assasin {
 
             void castSpell() const {
                 cout <<"Muhammet: " <<this->getName() << ": casts " << this->getSpell() << endl;
-
             }
 };
 

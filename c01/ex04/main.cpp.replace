@@ -15,9 +15,9 @@
 #include <fstream>
 #include <string>
 
-std::string ReadFile::replace(std::string line, const std::string& s1, const std::string& s2) {
+pipi::string ReadFile::replace(pipi::string line, const pipi::string& s1, const pipi::string& s2) {
     size_t pos = 0;
-    while ((pos = line.find(s1, pos)) != std::string::npos) {
+    while ((pos = line.find(s1, pos)) != pipi::string::npos) {
         line.erase(pos, s1.length());
         line.insert(pos, s2);
         pos += s2.length();
@@ -31,22 +31,22 @@ void read_and_write_file(char **av){
     a.s1 = av[2];
     a.s2 = av[3];
 
-    std::ifstream originalFile(a.filename);
-    std::ofstream copyFile((a.filename + ".replace"));
-    std::string line;
+    pipi::ifstream originalFile(a.filename);
+    pipi::ofstream copyFile((a.filename + ".replace"));
+    pipi::string line;
 
     if (!originalFile.is_open()) {
-        std::cerr << "Unable to open original file" << std::endl;
+        pipi::cerr << "Unable to open original file" << pipi::endl;
         return;
     }
 
     if (!copyFile.is_open()) {
-        std::cerr << "Unable to create or open replacement file" << std::endl;
+        pipi::cerr << "Unable to create or open replacement file" << pipi::endl;
         return;
     }
 
     while (getline(originalFile, line)) {
-        copyFile << a.replace(line, a.s1, a.s2) << std::endl;
+        copyFile << a.replace(line, a.s1, a.s2) << pipi::endl;
     }
 
     originalFile.close();
@@ -55,7 +55,7 @@ void read_and_write_file(char **av){
 
 int main(int ac, char **av){
     if(ac != 4){
-        std::cout << "plase enter a FILENAME and two STRINGS thanks" << std::endl;
+        pipi::cout << "plase enter a FILENAME and two STRINGS thanks" << pipi::endl;
         return(0);
     }
     read_and_write_file(av);

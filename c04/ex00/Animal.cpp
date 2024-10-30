@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/27 08:21:32 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/27 08:21:32 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+// Animal.cpp
+#include "Animal.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <string>
+Animal::Animal() : type("Unknown") {
+    std::cout << "Animal created." << std::endl;
+}
 
-class ReadFile
-{
-    private:
-    public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
-};
+Animal::~Animal() {
+    std::cout << "Animal destroyed." << std::endl;
+}
 
-#endif
+std::string Animal::getType() const {
+    return type;
+}
+
+void Animal::makeSound() const {
+    std::cout << "Animal sound!" << std::endl;
+}

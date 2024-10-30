@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/27 08:35:15 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/27 08:35:15 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#include "Cat.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <string>
+Cat::Cat() {
+    type = "Cat";
+    std::cout << "Cat created." << std::endl;
+}
 
-class ReadFile
-{
-    private:
-    public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
-};
+Cat::~Cat() {
+    std::cout << "Cat destroyed." << std::endl;
+}
 
-#endif
+void Cat::makeSound() const {
+    std::cout << "Meow!" << std::endl;
+}
+

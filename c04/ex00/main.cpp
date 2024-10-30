@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/27 08:36:08 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/27 08:36:08 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <string>
-
-class ReadFile
+int main()
 {
-    private:
-    public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
-};
+    const Animal* meta = new Animal();
+    const Animal* j = new Dog();
+    const Animal* i = new Cat();
 
-#endif
+    std::cout << j->getType() << " " << std::endl;
+    std::cout << i->getType() << " " << std::endl;
+    i->makeSound(); //will output the cat sound!
+    j->makeSound();
+    meta->makeSound();
+    return 0;
+}

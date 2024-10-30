@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/24 23:15:46 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/24 23:15:46 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#include "DiamondTrap.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <string>
+int main() {
+    DiamondTrap diamondTrap("DiamondTrap");
 
-class ReadFile
-{
-    private:
-    public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
-};
-
-#endif
+    diamondTrap.attack("enemy");
+    diamondTrap.takeDamage(10);
+    diamondTrap.beRepaired(5);
+    diamondTrap.whoAmI();
+    diamondTrap.guardGate();
+    diamondTrap.highFivesGuys();
+    return 0;
+}

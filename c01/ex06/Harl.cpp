@@ -45,25 +45,10 @@ void    Harl::complain(std::string level){
     switch(a){
         case 0:
             Harl.debug();
-            std::cout << std::endl;
-            Harl.info();
-            std::cout << std::endl;
-            Harl.warning();
-            std::cout << std::endl;
-            Harl.error();
-            break;
         case 1:
             Harl.info();
-            std::cout << std::endl;
-            Harl.warning();
-            std::cout << std::endl;
-            Harl.error();
-            break;
         case 2:
             Harl.warning();
-            std::cout << std::endl;
-            Harl.error();
-            break;
         case 3:
             Harl.error();
             break;

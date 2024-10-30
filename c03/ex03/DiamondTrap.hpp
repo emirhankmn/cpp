@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/24 07:20:24 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/24 07:20:24 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-#include <fstream>
-#include <iostream>
-#include <string>
-
-class ReadFile
-{
+class DiamondTrap : public ScavTrap, public FragTrap{
     private:
+        std::string name;
     public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
+        DiamondTrap(std::string name);
+        ~DiamondTrap();
+        void whoAmI(void);
 };
-
-#endif

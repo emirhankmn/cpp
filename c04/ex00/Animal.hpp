@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readfile.hpp                                       :+:      :+:    :+:   */
+/*   p.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 05:03:48 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/11 05:03:48 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/27 07:39:50 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/27 07:39:50 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
 
-#include <fstream>
 #include <iostream>
 #include <string>
 
-class ReadFile
-{
-    private:
-    public:
-        std::string filename;
-        std::string s1;
-        std::string s2;
-        void read_and_write_file(char **av);
-        std::string replace(std::string line, const std::string& s1, const std::string& s2);
+class Animal {
+protected:
+    std::string type;
+
+public:
+    Animal();
+    virtual ~Animal();
+
+    std::string getType() const;
+    virtual void makeSound() const;
 };
 
 #endif

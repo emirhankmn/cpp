@@ -5,28 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 00:00:27 by eakman            #+#    #+#             */
-/*   Updated: 2024/08/12 00:00:27 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/01 02:18:31 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/01 02:18:31 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-# define FIXED_HPP
-
 #include <iostream>
-#include <string>
+#include <cmath>
 
-class Fixed{
+class Fixed {
     private:
         int value;
         static const int bits = 8;
     public:
         Fixed();
+        Fixed(int const value);
+        Fixed(float const value);
         Fixed(const Fixed &fixed);
-        Fixed& operator=(const Fixed &fixed);
-        ~Fixed();
+        Fixed& operator=(const Fixed &fized);
         int getRawBits(void) const;
         void setRawBits(int const raw);
+        float toFloat(void) const;
+        int toInt(void) const;
+        ~Fixed();
 };
 
-#endif
+std::ostream & operator<<(std::ostream &o, const Fixed &f);
