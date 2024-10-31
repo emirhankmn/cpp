@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   deneme.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 00:07:10 by eakman            #+#    #+#             */
-/*   Updated: 2024/10/24 00:07:10 by eakman           ###   ########.fr       */
+/*   Created: 2024/10/30 20:44:00 by eakman            #+#    #+#             */
+/*   Updated: 2024/10/30 20:44:00 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
+#include <stdio.h>
+#include <math.h>
 
-class ScavTrap : public ClapTrap {
-    public:
-        ScavTrap(std::string name);
-        ~ScavTrap();
-        void guardGate();
-};
+int main(){
+    double a = 5;
+    double b = 3.0;
+
+    if (a == b)
+        printf("a and b are equal\n");
+    else
+        printf("a and b are not equal\n");
+
+    double epsilon = 1e-9;
+    if (fabs(a - b) < epsilon)
+        printf("a and b are equal\n");
+    else
+        printf("a and b are not equal\n");
+}

@@ -22,7 +22,7 @@ int main() {
     // ScavTrap'i test ediyoruz
     ScavTrap scav("OPTIMUS");
     scav.attack("megatron");
-    scav.takeDamage(20);
+    scav.takeDamage(30);
     scav.beRepaired(10);
     scav.guardGate();  // Özel ScavTrap fonksiyonunu çağırıyoruz
 

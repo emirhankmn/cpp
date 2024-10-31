@@ -44,7 +44,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 void ClapTrap::beRepaired(unsigned int amount) {
     if (energyPoints > 0 && hitPoints > 0) {
         hitPoints += amount;
-        energyPoints--; // Enerji puanı azalır
+        energyPoints--;
         std::cout << "ClapTrap " << name << " " << amount << " heart recover. Current heart: " << hitPoints << std::endl;
     } else {
         if (hitPoints == 0) {

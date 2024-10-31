@@ -21,13 +21,6 @@ int main() {
     clap.takeDamage(5);
     clap.beRepaired(3);
 
-    // ScavTrap'i test ediyoruz
-    ScavTrap scav("GuardBot");
-    scav.attack("Enemy2");
-    scav.takeDamage(20);
-    scav.beRepaired(10);
-    scav.guardGate();  // Özel ScavTrap fonksiyonunu çağırıyoruz
-
     // FragTrap'i test ediyoruz
     FragTrap frag("FighterBot");
     frag.attack("Enemy3");

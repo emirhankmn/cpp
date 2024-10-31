@@ -21,7 +21,6 @@ class Fixed {
         Fixed();
         Fixed(int const value);
         Fixed(float const value);
-        Fixed(const Fixed &fixed);
         Fixed& operator=(const Fixed &fized);
         int getRawBits(void) const;
         void setRawBits(int const raw);
