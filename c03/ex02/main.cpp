@@ -10,23 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// main.cpp
 #include "FragTrap.hpp"
-#include "ScavTrap.hpp"
 
 int main() {
-    // ClapTrap'i test ediyoruz
-    ClapTrap clap("Robot1");
-    clap.attack("Enemy1");
-    clap.takeDamage(5);
-    clap.beRepaired(3);
+    // FragTrap nesnesi oluşturma ve temel testler
+    FragTrap frag("Warrior");
 
-    // FragTrap'i test ediyoruz
-    FragTrap frag("FighterBot");
-    frag.attack("Enemy3");
-    frag.takeDamage(15);
-    frag.beRepaired(5);
-    frag.highFivesGuys();  // Özel FragTrap fonksiyonunu çağırıyoruz
+    // FragTrap ile saldırı
+    frag.attack("enemy");
+
+    // FragTrap'in High Five işlevini test etme
+    frag.highFivesGuys();
+
+    // Hasar alma ve onarma işlemleri
+    frag.takeDamage(30);
+    frag.beRepaired(20);
+
+    // Enerji bitene kadar saldırı denemeleri
+    for (int i = 0; i < 10; ++i) {
+        frag.attack("another enemy");
+    }
+
+    // Hasar alma ve onarım testi tekrar
+    frag.takeDamage(100);
+    frag.beRepaired(50);
 
     return 0;
 }
+

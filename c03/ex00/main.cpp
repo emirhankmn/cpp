@@ -10,18 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// main.cpp
 #include "ClapTrap.hpp"
 
 int main() {
-    ClapTrap clap("JhonnyLash");
+    
+    ClapTrap robot1("Clappy");
+    ClapTrap robot2("Trappy");
 
-    clap.attack("Enemy1");
-    clap.takeDamage(5);
-    clap.beRepaired(3);
-    clap.attack("Enemy2");
-    clap.takeDamage(10);
-    clap.beRepaired(5);
+    // Başlangıç durumu
+    std::cout << "\n--- Beginning situation ---\n";
+    robot1.attack("enemy");        
+    robot1.takeDamage(3);   
+    robot1.beRepaired(5);
+
+    // Enerji puanlarının tükenmesi testi
+    std::cout << "\n--- Energy Depletion Test ---\n";
+    for (int i = 0; i < 10; ++i) {
+        robot1.attack("enemy");
+    }
+
+    // Can puanı tükenmesi testi
+    std::cout << "\n--- Life Exhaustion Test ---\n";
+    robot1.takeDamage(15);
+    robot1.attack("enemy");
+    robot1.beRepaired(10);
+
+    
+    std::cout << "\n--- Copy Constructar Test ---\n";
+    ClapTrap robot3(robot1);
+
+    // Kopya atama operatörü testi
+    std::cout << "\n--- Copy Assigment Test ---\n";
+    robot2 = robot1;
 
     return 0;
 }
+
+

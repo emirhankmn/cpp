@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = ScavTrap
 CC = g++ -std=c++98
 CFLAGS = -Wall -Wextra -Werror
 SRC = $(wildcard *.cpp)
@@ -17,3 +17,5 @@ fclean:
 	rm -f $(OBJ) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

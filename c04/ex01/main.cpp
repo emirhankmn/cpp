@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 08:36:08 by eakman            #+#    #+#             */
-/*   Updated: 2024/10/27 08:36:08 by eakman           ###   ########.fr       */
+/*   Created: 2024/11/02 01:08:47 by eakman            #+#    #+#             */
+/*   Updated: 2024/11/02 01:08:47 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,60 @@
 #include "WrongCat.hpp"
 
 int main() {
-    std::cout << "=== Normal Animal Test ===" << std::endl;
+    std::cout << "\n=== Testing Animal Hierarchy ===" << std::endl;
+
     const Animal* meta = new Animal();
     const Animal* dog = new Dog();
     const Animal* cat = new Cat();
 
-    std::cout << dog->getType() << " " << std::endl;
-    std::cout << cat->getType() << " " << std::endl;
+    std::cout << "Type of dog: " << dog->getType() << std::endl;
+    std::cout << "Type of cat: " << cat->getType() << std::endl;
 
-    dog->makeSound(); 
-    cat->makeSound(); 
     meta->makeSound();
+    dog->makeSound();
+    cat->makeSound();
 
     delete meta;
     delete dog;
     delete cat;
 
-    std::cout << "\n=== WrongAnimal Test ===" << std::endl;
+    std::cout << "\n=== Testing WrongAnimal Hierarchy ===" << std::endl;
+
     const WrongAnimal* wrongMeta = new WrongAnimal();
     const WrongAnimal* wrongCat = new WrongCat();
 
-    std::cout << wrongCat->getType() << " " << std::endl;
+    std::cout << "Type of wrongCat: " << wrongCat->getType() << std::endl;
 
-    wrongCat->makeSound();
     wrongMeta->makeSound();
+    wrongCat->makeSound();
 
     delete wrongMeta;
     delete wrongCat;
 
+    std::cout << "\n=== Testing Deep Copy Dog ===" << std::endl;
+
+    Dog basicDog;
+    {
+        Dog tmpDog = basicDog;
+    }
+
+    std::cout << "\n=== Testing Deep Copy Cat ===" << std::endl;
+
+    Cat basicCat;
+    {
+        Cat tmpCat = basicCat;
+    }
+
+    Dog dog1;
+    Cat cat1;
+
+    dog1.getBrain()->setIdea(0, "I am a dog");
+    cat1.getBrain()->setIdea(0, "I am a cat");
+
+    std::cout << "Dog idea: " << dog1.getBrain()->getIdea(0) << std::endl;
+    std::cout << "Cat idea: " << cat1.getBrain()->getIdea(0) << std::endl;
+
+    std::cout << "===============================" << std::endl;
+
     return 0;
 }
-

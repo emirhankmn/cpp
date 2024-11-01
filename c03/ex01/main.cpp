@@ -13,19 +13,29 @@
 #include "ScavTrap.hpp"
 
 int main() {
-    // ClapTrap'i test ediyoruz
-    ClapTrap clap("Jhonwick");
-    clap.attack("dogkiller");
-    clap.takeDamage(5);
-    clap.beRepaired(3);
+    // ScavTrap nesnesi oluşturma ve temel testler
+    ScavTrap scav("Guardian");
 
-    // ScavTrap'i test ediyoruz
-    ScavTrap scav("OPTIMUS");
-    scav.attack("megatron");
+    // ScavTrap ile saldırı
+    scav.attack("enemy");
+
+    // ScavTrap'in Gate Keeper modunu test etme
+    scav.guardGate();
+
+    // Hasar alma ve onarma işlemleri
     scav.takeDamage(30);
-    scav.beRepaired(10);
-    scav.guardGate();  // Özel ScavTrap fonksiyonunu çağırıyoruz
+    scav.beRepaired(20);
+
+    // Enerji bitene kadar saldırı denemeleri
+    for (int i = 0; i < 10; ++i) {
+        scav.attack("another enemy");
+    }
+
+    // Hasar alma ve onarım testi tekrar
+    scav.beRepaired(50);
+    scav.takeDamage(100);
 
     return 0;
 }
+
 

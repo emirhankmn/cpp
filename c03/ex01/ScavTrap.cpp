@@ -12,25 +12,69 @@
 
 #include "ScavTrap.hpp"
 
-// Kurucu: Başlangıç değerleri atanıyor
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
+// Default constructor
+ScavTrap::ScavTrap() : ClapTrap("Unnamed ScavTrap") {
     hitPoints = 100;
     energyPoints = 50;
     attackDamage = 20;
-    std::cout << "ScavTrap " << this->name << " to create." << std::endl;
+    std::cout << "\033[0;32mScavTrap " << name << " created with default constructor.\033[0m\n";
 }
 
-// Yok edici: Sınıf yok edildiğinde bir mesaj yazdırılır
+// Parameterized constructor
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name) {
+    hitPoints = 100;
+    energyPoints = 50;
+    attackDamage = 20;
+    std::cout << "\033[0;32m";
+    std::cout << "ScavTrap " << name << " created with name constructor.\n";
+    std::cout << "Hit Points: " << hitPoints << std::endl << "Energy Points: " << energyPoints << std::endl << "Attack Damage: " << attackDamage << std::endl << "\033[0m\n";
+}
+
+// Copy constructor
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
+    hitPoints = other.hitPoints;
+    energyPoints = other.energyPoints;
+    attackDamage = other.attackDamage;
+    std::cout << "\033[0;34mScavTrap " << name << " copied with copy constructor.\033[0m\n";
+}
+
+// Copy assignment operator
+ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
+    if (this != &other) {
+        ClapTrap::operator=(other);
+        hitPoints = other.hitPoints;
+        energyPoints = other.energyPoints;
+        attackDamage = other.attackDamage;
+        std::cout << "\033[0;34mScavTrap " << name << " assigned with copy assignment operator.\033[0m\n";
+    }
+    return *this;
+}
+
+// Destructor
 ScavTrap::~ScavTrap() {
-    std::cout << "ScavTrap " << this->name << " is destroy." << std::endl;
+    std::cout << "\033[0;31mScavTrap " << name << " destroyed.\033[0m\n";
 }
 
-// guardGate fonksiyonu: Kapı bekçisi moduna geçer
-void ScavTrap::guardGate() {
-    std::cout << "ScavTrap " << name << "  Gate keeper mode." << std::endl;
-}
-
+// Overridden attack function
 void ScavTrap::attack(const std::string& target) {
-    std::cout << "ScavTrap " << name << " fiercely attacks " << target << ", causing " << attackDamage << " points of damage!" << std::endl;
+    if (energyPoints > 0 && hitPoints > 0) {
+        energyPoints--;
+        std::cout << "\033[0;33m";
+        std::cout << "\033[0;33mScavTrap " << name << " attacks " << target 
+                  << ", causing " << attackDamage << " points of damage!\n";
+        std::cout << "New Energy Points: " << energyPoints << std::endl << "\033[0m\n";
+    } 
+    else {
+        if (energyPoints == 0) {
+            std::cout << "\033[0;31mScavTrap " << name << " has no energy left to attack!\033[0m\n";
+        }
+        else{
+            std::cout << "\033[0;31mScavTrap " << name << " is dead, can't attack anymore!\033[0m\n";
+        }
+    }
 }
 
+// New guardGate function
+void ScavTrap::guardGate() {
+    std::cout << "\033[0;36mScavTrap " << name << " is now in Gate Keeper mode!\033[0m\n";
+}
