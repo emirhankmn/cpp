@@ -29,9 +29,9 @@ int main() {
     cat->makeSound(); 
     meta->makeSound();
 
-    delete meta;
     delete dog;
     delete cat;
+    delete meta;
 
     std::cout << "\n=== WrongAnimal Test ===" << std::endl;
     const WrongAnimal* wrongMeta = new WrongAnimal();

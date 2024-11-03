@@ -12,27 +12,23 @@
 
 #include "ClapTrap.hpp"
 
-// Default constructor
 ClapTrap::ClapTrap() : name("Unnamed"), hitPoints(10), energyPoints(10), attackDamage(0) {
     std::cout << "\033[0;32m";
     std::cout << "ClapTrap " << name << " created with default constructor.\n";
     std::cout << "Hit Points: " << hitPoints << std::endl << "Energy Points: " << energyPoints << std::endl <<"Attack Damage: " << attackDamage << std::endl << "\033[0m\n\n";
 }
 
-// Parameterized constructor 
 ClapTrap::ClapTrap(const std::string& name) : name(name), hitPoints(10), energyPoints(10), attackDamage(0) {
     std::cout << "\033[0;32m";
     std::cout << "ClapTrap " << name << " created with name constructor.\n";
     std::cout << "Hit Points: " << hitPoints << std::endl << "Energy Points: " << energyPoints << std::endl << "Attack Damage: " << attackDamage << std::endl << "\033[0m\n\n";
 }
 
-// Copy constructor
 ClapTrap::ClapTrap(const ClapTrap& other) : name(other.name), hitPoints(other.hitPoints), energyPoints(other.energyPoints), attackDamage(other.attackDamage) {
     std::cout << "\033[0;34m";
     std::cout << "ClapTrap " << name << " copied with copy constructor.\n";
 }
 
-// Copy assignment operator
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     if (this != &other) {
         name = other.name;
@@ -45,13 +41,11 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     return *this;
 }
 
-// Destructor
 ClapTrap::~ClapTrap() {
     std::cout << "\033[0;31m";
     std::cout << "ClapTrap " << name << " destroyed.\033[0m\n";
 }
 
-// Attack function
 void ClapTrap::attack(const std::string& target) {
     if (energyPoints > 0 && hitPoints > 0) {
         energyPoints--;
@@ -72,7 +66,6 @@ void ClapTrap::attack(const std::string& target) {
     }
 }
 
-// TakeDamage function
 void ClapTrap::takeDamage(unsigned int amount) {
     if(hitPoints == 0) {
         std::cout << "\033[0;31m";
@@ -90,7 +83,6 @@ void ClapTrap::takeDamage(unsigned int amount) {
     }
 }
 
-// BeRepaired function
 void ClapTrap::beRepaired(unsigned int amount) {
     if (energyPoints > 0 && hitPoints > 0) {
         hitPoints += amount;

@@ -19,6 +19,7 @@ DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), Frag
     energyPoints = ScavTrap::energyPoints;  // ScavTrap'ten miras alıyor
     attackDamage = FragTrap::attackDamage;  // FragTrap'ten miras alıyor
     std::cout << "DiamondTrap " << this->name << " oluşturuldu!" << std::endl;
+    std::cout << "Hit Points: " << hitPoints << std::endl << "Energy Points: " << energyPoints << std::endl << "Attack Damage: " << attackDamage << std::endl;
 }
 
 // Yok edici: Sınıf yok edildiğinde bir mesaj yazdırılır

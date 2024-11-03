@@ -41,6 +41,8 @@ int main() {
 
     std::cout << "Type of wrongCat: " << wrongCat->getType() << std::endl;
 
+    Cat cat2;
+    Cat cat3 = cat2;
     wrongMeta->makeSound();
     wrongCat->makeSound();
 
@@ -51,7 +53,12 @@ int main() {
 
     Dog basicDog;
     {
+        basicDog.getBrain()->setIdea(0, "I am a dog");
         Dog tmpDog = basicDog;
+        std::cout << "Dog idea: " << tmpDog.getBrain()->getIdea(0) << std::endl;
+        basicDog.getBrain()->setIdea(0, "I am a cat");
+        std::cout << "Dog idea: " << tmpDog.getBrain()->getIdea(0) << std::endl;
+        std::cout << "Dog idea: " << basicDog.getBrain()->getIdea(0) << std::endl;
     }
 
     std::cout << "\n=== Testing Deep Copy Cat ===" << std::endl;
@@ -61,6 +68,7 @@ int main() {
         Cat tmpCat = basicCat;
     }
 
+    std::cout << "===============================" << std::endl;
     Dog dog1;
     Cat cat1;
 
@@ -71,6 +79,7 @@ int main() {
     std::cout << "Cat idea: " << cat1.getBrain()->getIdea(0) << std::endl;
 
     std::cout << "===============================" << std::endl;
+
 
     return 0;
 }
