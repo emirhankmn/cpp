@@ -12,7 +12,6 @@
 
 #include "ScavTrap.hpp"
 
-// Default constructor
 ScavTrap::ScavTrap() : ClapTrap("Unnamed ScavTrap") {
     hitPoints = 100;
     energyPoints = 50;
@@ -20,7 +19,6 @@ ScavTrap::ScavTrap() : ClapTrap("Unnamed ScavTrap") {
     std::cout << "\033[0;32mScavTrap " << name << " created with default constructor.\033[0m\n";
 }
 
-// Parameterized constructor
 ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name) {
     hitPoints = 100;
     energyPoints = 50;
@@ -30,7 +28,6 @@ ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name) {
     std::cout << "Hit Points: " << hitPoints << std::endl << "Energy Points: " << energyPoints << std::endl << "Attack Damage: " << attackDamage << std::endl << "\033[0m\n";
 }
 
-// Copy constructor
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
     hitPoints = other.hitPoints;
     energyPoints = other.energyPoints;
@@ -38,7 +35,6 @@ ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
     std::cout << "\033[0;34mScavTrap " << name << " copied with copy constructor.\033[0m\n";
 }
 
-// Copy assignment operator
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
     if (this != &other) {
         ClapTrap::operator=(other);
@@ -50,12 +46,10 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
     return *this;
 }
 
-// Destructor
 ScavTrap::~ScavTrap() {
     std::cout << "\033[0;31mScavTrap " << name << " destroyed.\033[0m\n";
 }
 
-// Overridden attack function
 void ScavTrap::attack(const std::string& target) {
     if (energyPoints > 0 && hitPoints > 0) {
         energyPoints--;
@@ -74,7 +68,6 @@ void ScavTrap::attack(const std::string& target) {
     }
 }
 
-// New guardGate function
 void ScavTrap::guardGate() {
     std::cout << "\033[0;36mScavTrap " << name << " is now in Gate Keeper mode!\033[0m\n";
 }

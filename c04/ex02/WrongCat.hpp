@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deneme.c                                           :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 20:44:00 by eakman            #+#    #+#             */
-/*   Updated: 2024/10/30 20:44:00 by eakman           ###   ########.fr       */
+/*   Created: 2024/11/02 01:12:26 by eakman            #+#    #+#             */
+/*   Updated: 2024/11/02 01:12:26 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <math.h>
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
 
-int main(){
-    double a = 5;
-    double b = 3.0;
+#include "WrongAnimal.hpp"
 
-    if (a == b)
-        printf("a and b are equal\n");
-    else
-        printf("a and b are not equal\n");
+class WrongCat : public WrongAnimal {
+public:
+    WrongCat();
+    WrongCat(const WrongCat& other);
+    WrongCat& operator=(const WrongCat& other);
+    ~WrongCat();
 
-    double epsilon = 1e-9;
-    if (fabs(a - b) < epsilon)
-        printf("a and b are equal\n");
-    else
-        printf("a and b are not equal\n");
-}
+    void makeSound() const;
+};
+
+#endif

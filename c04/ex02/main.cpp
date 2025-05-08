@@ -19,18 +19,16 @@
 int main() {
     std::cout << "\n=== Testing Animal Hierarchy ===" << std::endl;
 
-    const Animal* meta = new Animal();
+    //const Animal* animal = new Animal();
     const Animal* dog = new Dog();
     const Animal* cat = new Cat();
 
     std::cout << "Type of dog: " << dog->getType() << std::endl;
     std::cout << "Type of cat: " << cat->getType() << std::endl;
 
-    meta->makeSound();
     dog->makeSound();
     cat->makeSound();
 
-    delete meta;
     delete dog;
     delete cat;
 

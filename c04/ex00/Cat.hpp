@@ -20,7 +20,7 @@ public:
     Cat();
     Cat(const Cat& other);
     Cat& operator=(const Cat& other);
-    virtual ~Cat();
+    ~Cat();
 
     void makeSound() const;
 };

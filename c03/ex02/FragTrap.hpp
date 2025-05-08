@@ -17,16 +17,13 @@
 
 class FragTrap : public ClapTrap {
 public:
-    // Constructors and Destructor
-    FragTrap();                             // Default constructor
-    FragTrap(const std::string& name);      // Parameterized constructor
-    FragTrap(const FragTrap& other);        // Copy constructor
-    FragTrap& operator=(const FragTrap& other); // Copy assignment operator
-    ~FragTrap();                            // Destructor
+    FragTrap();
+    FragTrap(const std::string& name);
+    FragTrap(const FragTrap& other);
+    FragTrap& operator=(const FragTrap& other);
+    ~FragTrap();
 
-    // Member functions
-    void attack(const std::string& target); // Overridden attack function
-    void highFivesGuys();                   // New function for High Five request
+    void highFivesGuys();
 };
 
 #endif

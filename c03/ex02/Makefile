@@ -1,13 +1,13 @@
 NAME = FragTrap
-CC = g++ -std=c++98
-CFLAGS = -Wall -Wextra -Werror
+CC = c++
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
 	@rm -f $(OBJ)
 
 clean:

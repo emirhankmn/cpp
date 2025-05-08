@@ -13,25 +13,14 @@
 #include "FragTrap.hpp"
 
 int main() {
-    // FragTrap nesnesi oluşturma ve temel testler
     FragTrap frag("Warrior");
-
-    // FragTrap ile saldırı
     frag.attack("enemy");
-
-    // FragTrap'in High Five işlevini test etme
     frag.highFivesGuys();
-
-    // Hasar alma ve onarma işlemleri
     frag.takeDamage(30);
     frag.beRepaired(20);
-
-    // Enerji bitene kadar saldırı denemeleri
     for (int i = 0; i < 10; ++i) {
         frag.attack("another enemy");
     }
-
-    // Hasar alma ve onarım testi tekrar
     frag.takeDamage(100);
     frag.beRepaired(50);
 
