@@ -1,35 +1,35 @@
-# Bureaucrat Projesi (C++ Module 05 - ex00)
+# Bureaucrat Projesi (C++ Module 05)
 
-Bu projede **C++'ta exception (istisna) yönetimi** öğreniyoruz. Programın hata durumlarında kontrolü kaybetmeden nasıl tepki vereceğini sağlamak için bir yapı kuruyoruz.
+Bu projede **C++ programlama dilinde hata yönetimi (exception handling)** kavramını uygulamalı olarak öğreniyoruz. Projemizde, bir memur (Bureaucrat) sınıfı ve bu memurun imzaladığı formlarla (Form) çalışırken oluşabilecek hataları yakalamayı ve yönetmeyi hedefliyoruz.
 
-## Try-Catch Nedir?
+## Try-Catch Mekanizması Nedir?
 
-Bir program yazarken kullanıcı yanlış bir veri girerse veya beklenmedik bir durum olursa, normalde program çöker. **try-catch** bloğu ile bu hatayı yakalıyoruz ve hata mesajı basıyoruz.
+Program çalışırken yanlış bir veri girilirse ya da beklenmedik bir hata olursa, program genellikle çöker. Bunun önüne geçmek için C++'ta **try-catch blokları** kullanılır. Bu bloklar sayesinde hataları önceden yakalayıp, kullanıcıya anlaşılır bir hata mesajı gösterebiliriz.
 
 ```cpp
 try {
-    Bureaucrat b("Ali", 0);  // Hata: derece 0 olamaz
+    Bureaucrat b("Ali", 0);  // Hatalı çünkü 0 geçerli bir derece değil.
 } catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
 }
 ```
 
-## Bureaucrat Sınıfı
+## Bureaucrat Sınıfı ve Derece Mantığı
 
-* `const std::string name`: Memurun ismi (değişmez)
-* `int grade`: 1 ile 150 arasında bir derece
+* `const std::string name`: Memurun ismi, değiştirilemez.
+* `int grade`: Memurun derecesi, 1 ile 150 arasında olmalı.
 
-| Ne yapıyoruz?        | Sayısal değişim | Anlamı                       |
-| -------------------- | --------------- | ---------------------------- |
-| Dereceyi artırıyoruz | 3 → 2           | Daha yüksek seviyeye geçiyor |
-| Dereceyi azaltıyoruz | 10 → 11         | Daha düşük seviyeye iniyor   |
+| İşlem             | Değişim | Anlamı                        |
+| ----------------- | ------- | ----------------------------- |
+| Dereceyi artırmak | 3 → 2   | Daha yetkili bir seviye       |
+| Dereceyi azaltmak | 10 → 11 | Daha düşük bir yetki seviyesi |
 
-## Exception'lar
+### Hatalar:
 
-* `GradeTooHighException`: Derece 1'den yüksekse
-* `GradeTooLowException`: Derece 150'den düşükse
+* **GradeTooHighException**: Derece 1'den yukarı çıkarsa.
+* **GradeTooLowException**: Derece 150'den aşağı düşerse.
 
-## Operator Overloading
+### Kolay yazdırma:
 
 ```cpp
 Bureaucrat john("John", 42);
@@ -40,51 +40,50 @@ std::cout << john << std::endl;  // John, bureaucrat grade 42
 
 # Form Sistemi (C++ Module 05 - ex01)
 
-Bu aşamada **Form** sınıfını ekledik. Bureaucrat formları imzalayabiliyor.
+Bu aşamada **Form** sınıfı ekledik. Memurlar artık formları imzalayabiliyor.
 
-| Özellik          | Açıklama                        |
-| ---------------- | ------------------------------- |
-| `name`           | Form ismi                       |
-| `isSigned`       | Başta false                     |
-| `gradeToSign`    | İmzalamak için gereken derece   |
-| `gradeToExecute` | Çalıştırmak için gereken derece |
+| Özellik          | Görevi                                  |
+| ---------------- | --------------------------------------- |
+| `name`           | Formun ismi                             |
+| `isSigned`       | İmzalı mı? (Başlangıçta false)          |
+| `gradeToSign`    | İmzalamak için gereken minimum derece   |
+| `gradeToExecute` | Çalıştırmak için gereken minimum derece |
+
+### Form Fonksiyonları:
 
 * `beSigned()`: Bureaucrat formu imzalar.
-* `signForm()`: Bureaucrat sonucu basar.
+* `signForm()`: Bureaucrat formu imzalamaya çalışır.
 
-## Exception'lar
+### Hatalar:
 
-* Form oluştururken derece sınırı kontrol edilir.
-* İmzalarken derece yetmezse `GradeTooLowException` fırlatılır.
+* Form oluşturulurken derece kontrol edilir.
+* Bureaucrat'ın derecesi yetmezse `GradeTooLowException` fırlatılır.
 
 ---
 
 # Execute Sistemi (C++ Module 05 - ex02)
 
-Artık formlar sadece kağıt üstünde kalmıyor, **gerçek iş** yapıyor.
+Artık formlar sadece imzalanmıyor, **gerçek işler** yapıyor.
 
-## Ne Değişti?
+## Neden `AForm` Soyut Sınıfa Dönüştü?
 
-* `Form` → `AForm` oldu (soyut sınıf)
-* `execute()` pure virtual fonksiyon eklendi
+Her form farklı bir işlem yapıyor. Bu yüzden `execute()` fonksiyonunu soyut (abstract) hale getirdik. Böylece `AForm` sınıfı tek başına kullanılamaz, ondan türetilen her form kendi `execute()` fonksiyonunu yazmak zorundadır. Bu, **polimorfizm** kullanarak kodumuzu daha esnek ve genişletilebilir hale getirir.
 
-## Yeni Formlar
+## Yeni Formlar:
 
 | Form Adı               | İmzalama | Çalıştırma | Görev                            |
 | ---------------------- | -------- | ---------- | -------------------------------- |
 | ShrubberyCreationForm  | 145      | 137        | ASCII ağaç çizer (dosyaya yazar) |
-| RobotomyRequestForm    | 72       | 45         | %50 robotleştirme yapar          |
+| RobotomyRequestForm    | 72       | 45         | %50 robotlaştırma yapar          |
 | PresidentialPardonForm | 25       | 5          | Hedefi affeder                   |
 
-## Rastgelelik Nasıl Sağlanıyor?
-
-`RobotomyRequestForm` için:
+## RobotomyRequestForm'da Rastgelelik:
 
 ```cpp
 #include <cstdlib>
 #include <ctime>
 
-std::srand(std::time(NULL));  // main()
+std::srand(std::time(NULL));
 if (std::rand() % 2 == 0) {
     std::cout << "Başarılı!";
 } else {
@@ -92,46 +91,69 @@ if (std::rand() % 2 == 0) {
 }
 ```
 
-## Execute Kontrolleri
+## Execute Kontrolleri:
 
 * Form imzalı mı?
-* Bureaucrat’ın derecesi yeterli mi?
+* Bureaucrat'ın derecesi yeterli mi?
 
-Hatalıysa exception fırlatılır.
+Eğer biri sağlanmazsa exception fırlatılır.
 
 ---
 
 # Intern Sınıfı (C++ Module 05 - ex03)
 
-Bu aşamada Intern sınıfı ile **form üretimini otomatikleştirdik.**
+Intern sınıfı sayesinde form üretimini **otomatize ettik**.
+
+### Öncesi:
+
+Formları şu şekilde elle oluşturuyorduk:
+
+```cpp
+AForm* form = new ShrubberyCreationForm("target");
+AForm* form = new RobotomyRequestForm("target");
+```
+
+Ve şuna benzer if-else blokları kullanıyorduk:
+
+```cpp
+if (formName == "shrubbery creation")
+    return new ShrubberyCreationForm(target);
+else if (formName == "robotomy request")
+    return new RobotomyRequestForm(target);
+else
+    std::cout << "Unknown form requested." << std::endl;
+```
+
+Bu yapı **tekrarlı**, **hantal** ve **merkezi değildi**.
+
+### Sonrası:
+
+```cpp
+AForm* form = intern.makeForm("robotomy request", "Bender");
+```
+
+`makeForm()` fonksiyonu ile form ismini string olarak veriyoruz, Intern sınıfı bizim için ilgili formu otomatik olarak üretiyor. Yeni bir form eklemek için yalnızca bir satır güncellemek yetiyor.
 
 ```cpp
 AForm* makeForm(const std::string& formName, const std::string& target);
 ```
 
-## Örnek Kullanım
-
-```cpp
-Intern intern;
-AForm* form = intern.makeForm("robotomy request", "Bender");
-```
-
-## Yanlış Form Durumu
+### Yanlış form adı örneği:
 
 ```cpp
 AForm* failForm = intern.makeForm("magic form", "target");
 // Çıktı: Intern: Unknown form requested.
 ```
 
-## Fonksiyon Pointer Dizisi
+## Fonksiyon Pointer Dizisi ile Akıllı Yapı
 
-Yanlış:
+Önceden:
 
 ```cpp
 if (name == "shrubbery creation") { ... }
 ```
 
-Doğru:
+Şimdi:
 
 ```cpp
 struct FormPair {
@@ -140,13 +162,26 @@ struct FormPair {
 };
 ```
 
-Bu sayede yeni form eklemek kolay olur 🚀 Ayrıca bu kullanım bizim işimize şu şekilde yarar: Kodumuz daha esnek ve ölçeklenebilir hale gelir. Yeni bir form eklemek istediğimizde, sadece dizimize bir satır ekleyerek sisteme entegre edebiliriz; ana mantığı değiştirmemize gerek kalmaz. Bu da bakım kolaylığı sağlar ve kod tekrarını önler.
+Bu yöntem sayesinde:
 
-Ayrıca `intern.makeForm("robotomy request", "Bender")` ile doğrudan `RobotomyRequestForm("Bender")` kullanımının farkı şudur: İlki daha dinamik ve esnektir; form ismi string olarak verildiği için hangi formun üretileceği çalışma zamanında belirlenir. İkincisi ise doğrudan belirli bir sınıfı manuel olarak oluşturur ve factory sisteminden bağımsızdır. Yani intern sistemi kodunuzu merkezi hale getirir ve yeni formlar ekledikçe daha sürdürülebilir bir yapı sunar.
+| Özellik                       | intern.makeForm kullanımı           | Doğrudan Sınıf Oluşturma             |
+| ----------------------------- | ----------------------------------- | ------------------------------------ |
+| Dinamiklik                    | ✔ Çalışma zamanında belirlenir      | ✖ Derleme zamanında sabittir         |
+| Yeni form ekleme kolaylığı    | ✔ Sadece diziyi güncellemek yeterli | ✖ Kodun birçok yerine müdahale gerek |
+| Kodun merkezileştirilmesi     | ✔ Factory mantığı ile merkezi       | ✖ Dağınık ve kontrolsüz              |
+| Esneklik ve sürdürülebilirlik | ✔ Yüksek                            | ✖ Düşük                              |
 
-| Özellik                       | intern.makeForm kullanımı      | Doğrudan Sınıf Oluşturma     |
-| ----------------------------- | ------------------------------ | ---------------------------- |
-| Dinamiklik                    | ✔ Çalışma zamanında belirlenir | ✖ Derleme zamanında sabittir |
-| Yeni form ekleme kolaylığı    | ✔ Sadece diziyi güncelle       | ✖ Yeni kod yazılması gerekir |
-| Kodun merkezileştirilmesi     | ✔ Factory mantığı ile merkezi  | ✖ Bağımsız ve dağınık        |
-| Esneklik ve sürdürülebilirlik | ✔ Yüksek                       | ✖ Düşük                      |
+Bu yaklaşım kodunuzu hem **bakımı kolay** hem de **ölçeklenebilir** yapar.
+
+---
+
+# Bu Proje Kapsamında Ne Öğrendik?
+
+* **Exception (hata) yönetimi:** Hataların nasıl yakalanıp kullanıcıya uygun bir şekilde gösterileceğini öğrendik.
+* **Sınıf tasarımı ve OOP prensipleri:** Özellikle soyut sınıflar (abstract class) ve polimorfizm kavramlarını pratik ettik.
+* **Operator overloading:** `<<` operatörü sayesinde nesnelerimizi kolayca yazdırmayı öğrendik.
+* **Random (rastgelelik) yönetimi:** C++'ta klasik yöntemlerle nasıl rastgelelik sağlanacağını ve bunun sınıf içi kullanımı gördük.
+* **Factory Pattern mantığı:** Intern sınıfı ile form üretimini merkezi bir şekilde yöneterek kodu nasıl daha sürdürülebilir hale getirebileceğimizi gördük.
+* **Kodun esnekliğini artırma:** Daha az kod tekrarıyla, daha temiz ve yönetilebilir bir kod yapısı oluşturduk.
+
+Bu proje, C++'ta hem teorik hem pratik olarak hata yönetimi, OOP, sınıf tasarımı ve kod organizasyonu konularında sağlam bir temel oluşturmuştur.
