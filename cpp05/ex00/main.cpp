@@ -39,7 +39,7 @@ int main() {
     // Copy constructor test
     try {
         Bureaucrat jane("Jane", 100);
-        Bureaucrat copyOfJane(jane); // Copy constructor
+        Bureaucrat copyOfJane(jane);
         std::cout << "Original Bureaucrat: " << jane << std::endl;
         std::cout << "Copied Bureaucrat: " << copyOfJane << std::endl;
     } catch (const std::exception& e) {
