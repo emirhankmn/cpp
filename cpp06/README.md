@@ -26,7 +26,11 @@ Bu egzersizde amaç, kullanıcıdan alınan bir string ifadenin (`"42"`, `"a"`, 
 ScalarConverter::convert("nanf");   // float: nanf, double: nan
 ScalarConverter::convert("+inf");   // float: +inff, double: +inf
 ScalarConverter::convert("42.0f");  // float: 42.0f, double: 42.0
+ScalarConverter::convert("1e-5000f");  // float: 0.0f, double: 0.0 (çok küçük → sıfıra yuvarlanır)
+ScalarConverter::convert("1e400f");    // float: inff, double: inf (çok büyük → sonsuzluk)
 ```
+
+Bu tür uç değerlerde `std::isnan()` veya `std::isinf()` kullanımı, sayı geçerli olsa da matematiksel olarak işlenemez hale gelip gelmediğini kontrol etmek için önemlidir.
 
 * Literal’in tipi otomatik olarak algılanır.
 * Her tipe dönüşüm yapılır ve ekrana yazdırılır.
