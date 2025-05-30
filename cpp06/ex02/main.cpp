@@ -12,11 +12,7 @@
 
 #include <iostream>
 #include "Base.hpp"
-
-// Declare the functions from Identify.cpp
-Base* generate();
-void identify(Base* p);
-void identify(Base& p);
+#include "Identify.hpp"
 
 int main() {
     Base* obj = generate();     // Rastgele A, B veya C oluştur

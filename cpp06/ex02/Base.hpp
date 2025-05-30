@@ -15,8 +15,8 @@
 #define BASE_HPP
 
 class Base {
-public:
-    virtual ~Base();
+    public:
+        virtual ~Base();
 };
 
 class A : public Base {};

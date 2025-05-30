@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Identify.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eakman <arcemirhanakman@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 00:58:12 by eakman            #+#    #+#             */
-/*   Updated: 2025/05/22 00:58:12 by eakman           ###   ########.fr       */
+/*   Created: 2025/05/30 04:07:33 by eakman            #+#    #+#             */
+/*   Updated: 2025/05/30 04:07:33 by eakman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-#define SERIALIZER_HPP
+#ifndef IDENTIFY_HPP
+#define IDENTIFY_HPP
 
-#include <stdint.h>
-#include "Data.hpp"
+#include "Base.hpp"
 
-class Serializer {
-    public:
-        static uintptr_t serialize(Data* ptr);
-        static Data* deserialize(uintptr_t raw);
-    
-    private:
-        Serializer();
-        ~Serializer();
-        Serializer(const Serializer&);
-        Serializer& operator=(const Serializer&);
-};
+Base* generate();
+void identify(Base* p);
+void identify(Base& p);
 
 #endif
