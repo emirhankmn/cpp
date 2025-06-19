@@ -6,15 +6,42 @@ Bu modülde, STL’in gücünü kullanarak **şablon (template)** tabanlı fonks
 
 ## 🔍 Temel Kavramlar
 
-### 🔢 `std::vector` ve Diğer STL Container’ları
+### 🔢 `std::vector`, `std::deque`, `std::list` Karşılaştırması
 
-STL (Standard Template Library), C++’ta veri saklamak için birçok hazır yapı sunar. Bunlardan bazıları:
+#### `std::vector`
 
-* `std::vector<T>`: Dinamik dizi. Hızlı erişim, sona veri eklemek hızlıdır.
-* `std::list<T>`: Çift bağlı liste. Araya veri eklemek/silmek kolaydır, ama rastgele erişim yavaştır.
-* `std::deque<T>`: Çift uçlu sıra. Baştan ve sondan hızlı erişim sağlar.
+```
+[1][2][3][4][5] → → → (Contiguous Memory)
+```
 
-Hepsi STL container’dır ve `iterator` desteği sunar.
+* Sona ekleme çok hızlı (`push_back`) ✅
+* Rastgele erişim çok hızlı (`v[i]`) ✅
+* Başa/ortaya ekleme yavaş ❌
+* Bellek kullanımı verimli ✅
+
+#### `std::deque`
+
+```
+[ ][ ][1][2][3][4][5][ ][ ] (Çift uçlu bloklu yapı)
+```
+
+* Hem başa hem sona hızlı erişim ✅
+* Rastgele erişim mümkün (`d[i]`) ⚠️ biraz daha yavaş
+* Bellek parçalı olduğundan cache verimliliği düşer ❌
+
+#### `std::list`
+
+```
+[1]↔[2]↔[3]↔[4]↔[5] (Çift bağlı liste)
+```
+
+* Ortaya/başa/sona ekleme-silme hızlı ✅
+* Rastgele erişim yok ❌
+* Bellek kullanımı daha ağır ❌
+
+> 📌 Büyük veri setlerinde `vector` genelde daha hızlıdır çünkü bellekte tek blokta tutulur. `deque` ise bloklu yapısı nedeniyle büyük veri işleme süresinde `vector`'e göre daha yavaş olabilir.
+
+---
 
 ### 🧭 Iterator Nedir?
 
@@ -36,104 +63,51 @@ Bu kod, vektörün tüm elemanlarını sırayla yazdırır.
 
 ### 🔧 Iterator Kullanım Alanları
 
-Iterator’lar sadece container’larda gezinmek için değil, daha birçok işlev için kullanılır:
-
-* ✅ **STL algoritmalarıyla birlikte çalışma:**
-
-  * `std::find`, `std::sort`, `std::copy`, `std::for_each`, `std::remove`, `std::reverse` gibi algoritmalar iterator ile çalışır.
-
-* ✅ **Tüm container türleriyle uyumlu çalışma:**
-
-  * `vector`, `list`, `map`, `set`, `deque` gibi yapılarda ortak gezinti sağlar.
-
-* ✅ **İleri/geri gezinme:**
-
-  * `iterator`, `const_iterator`, `reverse_iterator` gibi türlerle farklı yönlerde ve modlarda gezinilebilir.
-
-* ✅ **Özelleştirilmiş veri yapılarında kullanma:**
-
-  * Kendi sınıflarına STL benzeri erişim özellikleri kazandırmak için iterator tanımlayabilirsin.
-
-* ✅ **Okuma ve yazma işlemleri için kontrol:**
-
-  * `iterator` (okuma + yazma), `const_iterator` (sadece okuma), `reverse_iterator` (container’ı tersten gezmek için), `back_inserter` (container’a ekleme yapma) gibi özelleşmiş iterator türleri vardır.
+* STL algoritmalarıyla birlikte (`std::sort`, `std::find`, `std::copy`...)
+* Tüm container türlerinde ortak erişim için
+* `const_iterator`, `reverse_iterator`, `back_inserter` gibi türlerde farklı yönlerde ve farklı amaçlarla gezinme için
+* Kendi sınıflarımıza STL tarzı erişim kazandırmak için
 
 ---
 
 ## ✅ ex00 – Easy Find
 
-### 🎯 Amaç
+### ⚠️ Bilgilendirme:
 
-STL container’ları içinde **verilen bir değeri bulmaya çalışan** bir `easyfind` fonksiyonu yazmak.
+`std::stack`, `std::map`, `std::set` gibi associative/adapted container'larda `std::find` doğrudan kullanılamaz çünkü bunların içerdiği veri tipi `int` değil, `pair` veya özel yapıdır.
 
-### ⚖️ Nasıl yaptık?
-
-* `template<typename T>` ile yazdık, böylece **her tür container** ile kullanılabilir oldu (`vector`, `list`, `deque`, vs.).
-* `std::find()` algoritmasını kullandık (STL <algorithm> başlığında yer alır; belirli bir değeri bir iterator aralığında arar ve bulursa iterator, bulamazsa `end()` döner).
-* Eğer değer bulunamazsa `std::runtime_error` fırlattık.
-* `typename T::const_iterator` tipini kullandık çünkü iterator tipi template içinde açıkça belirtilmelidir.
-
-### 📌 Örnek
+### 📌 Örnek:
 
 ```cpp
-std::vector<int> v = {1, 2, 3, 4};
-easyfind(v, 3);  // ✅ bulundu
-easyfind(v, 99); // ❌ exception
+std::map<int, std::string> myMap;
+myMap[3] = "three";
+easyfind(myMap, 3); // ❌ pair == int karşılaştırılamaz → derleme hatası
 ```
+
+Bu nedenle `easyfind` sadece `vector`, `list`, `deque`, `array` gibi iterable container'larla kullanılmalıdır.
 
 ---
 
-## ✅ ex01 – Span
+## ✅ ex01 – Span → Template Neden Kullanıldı?
 
-### 🎯 Amaç
-
-Bir sınıf (`Span`) yazarak:
-
-* Sabit sayıda tamsayı saklamak
-* **En kısa ve en uzun iki sayı farkını** (span) hesaplamak
-* Çok sayıda sayı eklemeyi desteklemek (iterator aralığı)
-
-### ⚖️ Nasıl yaptık?
-
-* `addNumber(int)` ile tek tek sayılar eklendi.
-* `addNumber(Iterator begin, Iterator end)` ile **çoklu sayı ekleme** sağladık.
-
-Bu, container tabanlı veri kaynaklarından (örneğin `std::vector`, `std::list`) tek tek `addNumber(int)` çağırmak yerine **bir aralıktaki tüm elemanları tek seferde eklememizi** sağlar. STL'de bu tür toplu eklemeler `insert()` gibi fonksiyonlarla yapılır.
-
-Fonksiyonun içi şu şekildedir:
+Fonksiyon tanımı:
 
 ```cpp
 template<typename Iterator>
-void Span::addNumber(Iterator begin, Iterator end) {
-    if (_numbers.size() + std::distance(begin, end) > _maxSize)
-        throw std::runtime_error("Too many elements to add.");
-    _numbers.insert(_numbers.end(), begin, end);
-}
+void addNumber(Iterator begin, Iterator end);
 ```
 
-### Nasıl çalışıyor?
+Bu fonksiyon farklı container'ların farklı iterator türleriyle çalışabilsin diye `template` ile yazılmıştır:
 
-* `std::distance(begin, end)` → Kaç eleman geleceğini hesaplar.
-* `_numbers.size()` + bu sayı, kapasiteyi (`_maxSize`) aşıyorsa hata fırlatır.
-* Ardından, `insert()` ile tüm değerleri `_numbers` vektörünün sonuna ekler.
+| Container Türü | Iterator Tipi                |
+| -------------- | ---------------------------- |
+| `vector<int>`  | `std::vector<int>::iterator` |
+| `list<int>`    | `std::list<int>::iterator`   |
+| `deque<int>`   | `std::deque<int>::iterator`  |
 
-### Örnek kullanım:
+Eğer `template` olmasaydı, bu fonksiyonu sadece `vector` ile kullanabilirdik. `template` sayesinde **her container’la tek fonksiyon üzerinden** çalışabiliyoruz.
 
-```cpp
-std::vector<int> nums = {1, 2, 3, 4};
-Span sp(10);
-sp.addNumber(nums.begin(), nums.end()); // topluca 4 sayı eklenir
-```
-
-* Bu fonksiyon `template` olarak tanımlandı ve `.hpp` içinde yazıldı.
-* `std::distance()` ile kaç eleman geleceği hesaplandı, `insert()` ile eklendi.
-* `shortestSpan()` içinde `std::sort()` sonrası komşu farklar incelendi.
-* `longestSpan()` içinde `std::min_element()` ve `std::max_element()` ile uç fark alındı.
-
-### 🧠 Öğrendiğimiz Nokta
-
-* `iterator` kavramı sayesinde her tür container ile **genel çözümler** yazabildik.
-* STL algoritmaları kodu kısalttı, sadeleştirdi.
+Ayrıca, `std::distance(begin, end)` kullanımı sayesinde **eklenmek istenen eleman sayısı** önceden hesaplanıp kapasite aşılıp aşılmadığı kontrol ediliyor.
 
 ---
 
@@ -148,9 +122,9 @@ STL’deki `std::stack` yapısı **iterator desteklemez**. Biz bu sınıftan tü
 * `std::stack<T>`'den kalıtım aldık: `class MutantStack : public std::stack<T>`
 * Stack’in içindeki container olan `this->c` üzerinden `begin()` ve `end()` fonksiyonlarını ekledik.
 * `typedef typename std::stack<T>::container_type::iterator` ile iterator tipi tanımladık.
-* Artık `for` döngüsüyle stack içeriği gezilebilir hale geldi.
+* `template` class olduğu için tüm fonksiyonlar `.hpp` içinde yazıldı, bu normlara uygundur.
 
-### 📌 Örnek
+### 📌 Örnek Kullanım
 
 ```cpp
 MutantStack<int> m;
@@ -164,6 +138,19 @@ for (MutantStack<int>::iterator it = m.begin(); it != m.end(); ++it)
 
 > Normal `std::stack` ile bu yapılamazdı!
 
+### 🔍 Teknik Detaylar
+
+| Yapı Satırı             | Açıklama                                              |
+| ----------------------- | ----------------------------------------------------- |
+| `this->c`               | `std::stack`’in iç container’ı (genelde `deque`)      |
+| `begin()` / `end()`     | Iterator üzerinden stack içeriğine erişimi sağlar     |
+| `typedef ... iterator`  | `stack`’in iç container’ının iterator türünü kullanır |
+| `template <typename T>` | Her tür veri tipiyle çalışmayı sağlar                 |
+
+### 🧠 Kazanım
+
+Bu egzersiz ile `container adapter`'ları genişletmeyi, STL’in iç yapısını anlamayı ve `inheritance` + `iterator` birlikteliğini kullanarak özelleştirme yapmayı öğrendik.
+
 ---
 
 ## 🔚 Genel Kazanımlar
@@ -171,3 +158,14 @@ for (MutantStack<int>::iterator it = m.begin(); it != m.end(); ++it)
 * `template` ve `iterator` kullanarak **esnek, yeniden kullanılabilir kodlar** yazmayı öğrendik.
 * STL’in sunduğu `algorithm`, `vector`, `deque` gibi yapıları verimli şekilde kullandık.
 * `const_iterator`, `std::distance`, `std::sort`, `std::find` gibi STL araçlarını etkin şekilde uyguladık.
+
+Ek olarak:
+
+* `std::stack` gibi container adapter’ların neden `iterator` desteklemediği
+* `template<typename Iterator>` ifadesinin neden yazılması gerektiği (her container’ın `iterator` tipi farklı olduğu için)
+* `deque` ile `vector` arasında büyük veri setlerinde neden hız farkı oluştuğu
+  konuları da somut örneklerle birlikte açıklandı.
+
+Bu bilgilerle birlikte hem yazdığımız kodun **mantığı**, hem de **C++ STL tasarım prensipleri** üzerine derinlemesine bir kavrayış kazanılmış oldu.
+
+---
